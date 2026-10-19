@@ -1,6 +1,8 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Todo } from '../model/todo';
 import { TodoService } from '../service/todo.service';
+import { NgFor } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-todo',
@@ -8,7 +10,7 @@ import { TodoService } from '../service/todo.service';
     styleUrls: ['./todo.component.css'],
     providers: [TodoService],
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [NgFor, FormsModule]
 })
 export class TodoComponent {
   todos: Todo[] = [];
