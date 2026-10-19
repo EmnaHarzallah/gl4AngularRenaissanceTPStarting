@@ -2,7 +2,7 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Cv } from '../model/cv';
 import { EmbaucheService } from '../services/embauche.service';
 import { ToastrService } from 'ngx-toastr';
-import { NgIf } from '@angular/common';
+
 import { RouterLink } from '@angular/router';
 import { DefaultImagePipe } from '../pipes/default-image.pipe';
 
@@ -11,7 +11,7 @@ import { DefaultImagePipe } from '../pipes/default-image.pipe';
     templateUrl: './cv-card.component.html',
     styleUrls: ['./cv-card.component.css'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [NgIf, RouterLink, DefaultImagePipe]
+    imports: [RouterLink, DefaultImagePipe]
 })
 export class CvCardComponent {
   constructor(

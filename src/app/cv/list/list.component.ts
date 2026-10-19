@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from "@angular/core";
 import { Cv } from "../model/cv";
-import { NgFor, NgClass } from "@angular/common";
+import { NgClass } from "@angular/common";
 import { ItemComponent } from "../item/item.component";
 
 @Component({
@@ -8,7 +8,7 @@ import { ItemComponent } from "../item/item.component";
     templateUrl: "./list.component.html",
     styleUrls: ["./list.component.css"],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [NgFor, NgClass, ItemComponent]
+    imports: [NgClass, ItemComponent]
 })
 export class ListComponent {
   @Input() cvs: Cv[] | null = [];

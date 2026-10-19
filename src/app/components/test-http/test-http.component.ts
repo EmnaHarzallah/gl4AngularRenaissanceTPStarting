@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { NgFor, AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 
 export interface TodoModel {
   userId: number;
@@ -15,7 +15,7 @@ export interface TodoModel {
     templateUrl: './test-http.component.html',
     styleUrls: ['./test-http.component.css'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [NgFor, AsyncPipe, JsonPipe]
+    imports: [AsyncPipe, JsonPipe]
 })
 export class TestHttpComponent {
   todos: TodoModel[] = [];

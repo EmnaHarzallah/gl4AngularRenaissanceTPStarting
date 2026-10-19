@@ -5,14 +5,14 @@ import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { APP_ROUTES } from "src/config/routes.config";
 import { Cv } from "../model/cv";
-import { NgIf, JsonPipe } from "@angular/common";
+import { JsonPipe } from "@angular/common";
 
 @Component({
     selector: "app-add-cv",
     templateUrl: "./add-cv.component.html",
     styleUrls: ["./add-cv.component.css"],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [FormsModule, ReactiveFormsModule, NgIf, JsonPipe]
+    imports: [FormsModule, ReactiveFormsModule, JsonPipe]
 })
 export class AddCvComponent {
   constructor(

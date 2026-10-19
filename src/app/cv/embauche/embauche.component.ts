@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { EmbaucheService } from '../services/embauche.service';
 import { Cv } from '../model/cv';
-import { NgIf, NgFor } from '@angular/common';
+
 import { ItemComponent } from '../item/item.component';
 
 @Component({
@@ -9,7 +9,7 @@ import { ItemComponent } from '../item/item.component';
     templateUrl: './embauche.component.html',
     styleUrls: ['./embauche.component.css'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [NgIf, NgFor, ItemComponent]
+    imports: [ItemComponent]
 })
 export class EmbaucheComponent {
   public embauchees: Cv[] = [];
