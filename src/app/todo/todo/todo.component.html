@@ -1,18 +1,33 @@
-<div class="row">
-  <div class="col">
-    <ol class="list-group">
-      @for (todo of todos; track todo) {
-        <li class="list-group-item">
-          {{todo.name}} : {{todo.content}}
-          <i (click)="deleteTodo(todo)" class="fa fa-trash" aria-hidden="true"></i>
-        </li>
+<h2>Todos</h2>
+
+<form class="todo-form" (ngSubmit)="add()">
+  <input type="text" name="name" placeholder="name" [(ngModel)]="name" />
+  <input type="text" name="content" placeholder="content" [(ngModel)]="content" />
+  <button type="submit">add</button>
+</form>
+
+<div class="board">
+  @for (col of columns; track col.status) {
+    <section class="column" [class]="col.css">
+      <h3>{{ col.label }} ({{ col.todos().length }})</h3>
+
+      @for (todo of col.todos(); track todo.id) {
+        <article class="todo-card">
+          <strong>{{ todo.name }}</strong>
+          <p>{{ todo.content }}</p>
+
+          <div class="actions">
+            <select (change)="onStatusChange(todo.id, $event)">
+              @for (opt of columns; track opt.status) {
+                <option [value]="opt.status" [selected]="opt.status === todo.status">
+                  {{ opt.label }}
+                </option>
+              }
+            </select>
+            <button type="button" class="danger" (click)="remove(todo.id)">✕</button>
+          </div>
+        </article>
       }
-    </ol>
-  </div>
-  <div class="col">
-    name: <input [(ngModel)]="todo.name" type="text" class="form-control">
-    content: <input [(ngModel)]="todo.content" type="text" class="form-control">
-    <button (click)="addTodo()" [disabled]="!todo.name.trim() || !todo.content.trim()"
-    class="btn btn-primary m-2">add</button>
-  </div>
+    </section>
+  }
 </div>
