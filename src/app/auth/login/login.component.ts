@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule]
 })
+
 export class LoginComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -22,7 +23,6 @@ export class LoginComponent {
   login(credentials: CredentialsDto) {
     this.authService.login(credentials).subscribe({
       next: (response) => {
-        localStorage.setItem('token', response.id);
         this.toastr.success(`Bienvenu chez vous :)`);
         this.router.navigate([APP_ROUTES.cv]);
       },
