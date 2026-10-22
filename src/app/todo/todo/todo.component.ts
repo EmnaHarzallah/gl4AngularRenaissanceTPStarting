@@ -1,31 +1,42 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
-import { Todo } from '../model/todo';
-import { TodoService } from '../service/todo.service';
-
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TodoService } from '../service/todo.service';
+import { TodoStatus } from '../model/todo';
+import { Column } from '../model/column';
 
 @Component({
-    selector: 'app-todo',
-    templateUrl: './todo.component.html',
-    styleUrls: ['./todo.component.css'],
-    providers: [TodoService],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [FormsModule]
+  selector: 'app-todo',
+  imports: [FormsModule],
+  templateUrl: './todo.component.html',
+  styleUrl: './todo.component.css',
 })
 export class TodoComponent {
-  private todoService = inject(TodoService);
+  private readonly todoService = inject(TodoService);
 
-  todos: Todo[] = [];
-  todo = new Todo();
-  constructor() {
-    this.todos = this.todoService.getTodos();
-  }
-  addTodo() {
-    this.todoService.addTodo(this.todo);
-    this.todo = new Todo();
+  protected readonly columns : Column[] = [
+    { status: 'waiting', label: 'Waiting', css: 'waiting', todos: this.todoService.waiting },
+    { status: 'in progress', label: 'In Progress Todos', css: 'in-progress', todos: this.todoService.inProgress },
+    { status: 'done', label: 'Done Todos', css: 'done', todos: this.todoService.done },
+  ];
+
+  protected readonly name = signal('');
+  protected readonly content = signal('');
+
+  protected add() {
+    const name = this.name().trim();
+    if (!name) 
+      return;
+    this.todoService.addTodo(name, this.content().trim());
+    this.name.set('');
+    this.content.set('');
   }
 
-  deleteTodo(todo: Todo) {
-    this.todoService.deleteTodo(todo);
+  protected onStatusChange(id: string, event: Event) {
+    const status = (event.target as HTMLSelectElement).value as TodoStatus;
+    this.todoService.changeStatus(id, status);
+  }
+
+  protected remove(id: string) {
+    this.todoService.deleteTodo(id);
   }
 }

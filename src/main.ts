@@ -11,10 +11,12 @@ import { AppRoutingModule } from './app/app-routing.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { isDevMode, importProvidersFrom } from '@angular/core';
 import { AppComponent } from './app/app.component';
-
+import { v4 } from 'uuid';
+import { UUID } from './app/uuid-token';
 
 bootstrapApplication(AppComponent, {
     providers: [
+        { provide: UUID, useValue: v4 },
         importProvidersFrom(BrowserModule, FormsModule, BrowserAnimationsModule, // required animations module
         ToastrModule.forRoot(), // ToastrModule added
         AppRoutingModule, ReactiveFormsModule, ServiceWorkerModule.register("ngsw-worker.js", {
