@@ -4,8 +4,6 @@ import { Observable, Subject } from "rxjs";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { API } from "../../../config/api.config";
 
-const API_URL = 'https://apilb.tridevs.net/api/personnes';
-
 @Injectable({
   providedIn: "root",
 })
@@ -110,11 +108,11 @@ export class CvService {
    * @param name : string
    * @returns cvs Cv[]
    */
-   selectByName(name: string): Observable<Cv[]> {
+  selectByName(name: string): Observable<Cv[]> {
   const filter = JSON.stringify({ where: { name: { like: `%${name}%` } } });
   const params = new HttpParams().set('filter', filter);
-  return this.http.get<Cv[]>(API_URL, { params });
-  }
+  return this.http.get<Cv[]>(API.cv, { params });
+}
   /**
    * Recherche les cvs dont la valeur est égale à la chaine passée en paramètre
    * @param property : string, la propriété sur laquelle on va requeter
