@@ -6,6 +6,9 @@
         'list-group-item-secondary': !isOdd
       }"
       class="list-group-item"
+      [class.cursor-pointer]="detailsPath()"
+      [routerLink]="detailsPath() ? [detailsPath(), cv.id] : null"
+      routerLinkActive="active"
     >
       <app-item [cv]="cv"></app-item>
     </li>
