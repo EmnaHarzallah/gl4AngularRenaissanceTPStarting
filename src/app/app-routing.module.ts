@@ -11,6 +11,7 @@ import { AuthGuard } from "./auth/guards/auth.guard";
 import { AddCvComponent } from "./cv/add-cv/add-cv.component";
 import { CvComponent } from "./cv/cv/cv.component";
 import { DetailsCvComponent } from "./cv/details-cv/details-cv.component";
+import { MasterDetailsCvComponent } from "./cv/master-details-cv/master-details-cv.component";
 import { RhComponent } from "./optimizationPattern/rh/rh.component";
 import { TtcComponent } from "./ttc/ttc.component";
 
@@ -37,6 +38,11 @@ const routes: Route[] = [
     component: CvComponent,
   },
   { path: "cv/add", component: AddCvComponent, canActivate: [AuthGuard] },
+  {
+    path: "cv/list",
+    component: MasterDetailsCvComponent,
+    children: [{ path: ":id", component: DetailsCvComponent }],
+  },
   { path: "cv/:id", component: DetailsCvComponent },
   {
     path: "",

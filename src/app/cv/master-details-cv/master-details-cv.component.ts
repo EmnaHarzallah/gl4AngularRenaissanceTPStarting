@@ -18,10 +18,8 @@ export class MasterDetailsCvComponent {
   private cvService = inject(CvService);
   private toastr = inject(ToastrService);
 
-  /** Chemin de base des liens : /cv/list/<id> */
   readonly detailsPath = `/${APP_ROUTES.cv}/list`;
 
-  /** Master : la liste des cvs (Observable HTTP converti en signal) */
   cvs = toSignal(
     this.cvService.getCvs().pipe(
       catchError(() => {
