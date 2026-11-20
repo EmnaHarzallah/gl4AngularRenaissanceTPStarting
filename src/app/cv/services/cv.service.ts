@@ -130,4 +130,8 @@ export class CvService {
   selectCv(cv: Cv) {
     this.#selectedCv.set(cv);
   }
+
+  clearSelectedCv() {
+    this.#selectedCv.set(null);
+  }
 }

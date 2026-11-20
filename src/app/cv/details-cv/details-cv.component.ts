@@ -39,6 +39,7 @@ export class DetailsCvComponent {
   deleteCv(cv: Cv) {
     this.cvService.deleteCvById(cv.id).subscribe({
       next: () => {
+        this.cvService.clearSelectedCv();
         this.toastr.success(`${cv.name} supprimé avec succès`);
         this.router.navigate([APP_ROUTES.cv]);
       },
