@@ -5,7 +5,9 @@
 @if (cvs$ | async; as cvs) {
   <ul>
     @for (cv of cvs; track cv.id) {
-      <li>{{ cv.firstname }} {{ cv.name }}</li>
+      <li (click)="selectCv(cv)" style="cursor: pointer;">
+        {{ cv.firstname }} {{ cv.name }}
+      </li>
     }
   </ul>
 }

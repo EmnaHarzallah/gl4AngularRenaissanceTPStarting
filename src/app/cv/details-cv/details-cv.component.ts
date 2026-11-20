@@ -56,6 +56,7 @@ export class DetailsCvComponent implements OnInit {
       .deleteCvById(cv.id)
       .pipe(
         tap(() => {
+          this.cvService.clearSelectedCv();
           this.toastr.success(`${cv.name} supprimé avec succès`);
           void this.router.navigate([APP_ROUTES.cv]);
         }),

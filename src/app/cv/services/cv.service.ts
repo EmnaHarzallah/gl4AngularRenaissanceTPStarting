@@ -12,7 +12,7 @@ export class CvService {
   /**
    * Le subject permettant de créer le flux des cvs sélectionnés
    */
-  #selectCvSuject$ = new Subject<Cv>();
+  #selectCvSuject$ = new Subject<Cv | null>() ;  
   /**
    * Le flux des cvs sélectionnés
    */
@@ -132,5 +132,9 @@ export class CvService {
    */
   selectCv(cv: Cv) {
     this.#selectCvSuject$.next(cv);
+  }
+
+  clearSelectedCv() {
+    this.#selectCvSuject$.next(null);
   }
 }
