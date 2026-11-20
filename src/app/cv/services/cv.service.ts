@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Cv } from "../model/cv";
-import { Observable, Subject } from "rxjs";
+import { Observable, Subject , of , tap } from "rxjs";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { API } from "../../../config/api.config";
 
@@ -12,7 +12,8 @@ export class CvService {
   /**
    * Le subject permettant de créer le flux des cvs sélectionnés
    */
-  #selectCvSuject$ = new Subject<Cv | null>() ;  
+  #selectCvSuject$ = new Subject<Cv | null>() ;
+  #searchCache= new Map<string, Cv[]>();  
   /**
    * Le flux des cvs sélectionnés
    */
@@ -57,11 +58,11 @@ export class CvService {
    *
    */
   deleteCvById(id: number): Observable<any> {
-    return this.http.delete<any>(API.cv + id);
+    return this.http.delete<any>(API.cv + id).pipe(tap(()=>this.#searchCache.clear()));
   }
 
   addCv(cv: Cv): Observable<Cv> {
-    return this.http.post<any>(API.cv, cv);
+    return this.http.post<any>(API.cv, cv).pipe(tap(()=>this.#searchCache.clear()));
   }
 
   /**
@@ -109,9 +110,16 @@ export class CvService {
    * @returns cvs Cv[]
    */
   selectByName(name: string): Observable<Cv[]> {
+  const key = name.toLowerCase();
+  const cached=this.#searchCache.get(key);
+  if(cached){
+    return of(cached);
+  }
   const filter = JSON.stringify({ where: { name: { like: `%${name}%` } } });
   const params = new HttpParams().set('filter', filter);
-  return this.http.get<Cv[]>(API.cv, { params });
+  return this.http.get<Cv[]>(API.cv, { params }).pipe(
+    tap((cvs) => this.#searchCache.set(key, cvs))
+  );
 }
   /**
    * Recherche les cvs dont la valeur est égale à la chaine passée en paramètre
