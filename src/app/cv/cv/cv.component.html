@@ -9,4 +9,12 @@
     <app-cv-card [cv]="selectedCv()"></app-cv-card>
   </div>
 </div>
-<app-embauche></app-embauche>
+@defer (on viewport; prefetch on idle) {
+  <app-embauche />
+} @placeholder {
+  <div class="alert alert-secondary">Embauche information will appear here.</div>
+} @loading (minimum 500ms) {
+  <p>Loading embauche...</p>
+} @error {
+  <p>Failed to load embauche.</p>
+}

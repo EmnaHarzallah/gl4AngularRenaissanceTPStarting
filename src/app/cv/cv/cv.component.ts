@@ -14,7 +14,13 @@ import { UpperCasePipe, DatePipe } from "@angular/common";
   selector: "app-cv",
   templateUrl: "./cv.component.html",
   styleUrls: ["./cv.component.css"],
-  imports: [ListComponent, CvCardComponent, EmbaucheComponent, UpperCasePipe, DatePipe],
+  imports: [
+    ListComponent,
+    CvCardComponent,
+    EmbaucheComponent,
+    UpperCasePipe,
+    DatePipe,
+  ],
 })
 export class CvComponent {
   private logger = inject(LoggerService);
